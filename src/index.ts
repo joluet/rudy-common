@@ -1,5 +1,7 @@
 import { RouteState, RouteStop, Connection, ConnectionMetadata } from './types'
 
+export { RouteState, RouteStop, Connection, ConnectionMetadata }
+
 export const mergeRouteStates = (routeStates: RouteState[]): RouteState => {
   const mergedState = [...routeStates]
     .reverse()
