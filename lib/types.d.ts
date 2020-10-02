@@ -15,6 +15,8 @@ export declare type Connection = {
 };
 export declare type RouteStop = {
     id: string;
+    placeId: string;
+    name: string;
     lat: number;
     lng: number;
 };

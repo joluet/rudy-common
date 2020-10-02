@@ -103,10 +103,10 @@ describe('mergeRouteStates function', () => {
 describe('buildConnections function', () => {
   it('should use order from route state', () => {
     const stops: RouteStop[] = [
-      { id: 'id-1', lat: 1.0, lng: 1.1 },
-      { id: 'id-2', lat: 2.0, lng: 2.2 },
-      { id: 'id-3', lat: 3.0, lng: 3.3 },
-      { id: 'id-4', lat: 4.0, lng: 4.4 }
+      { id: 'id-1', placeId: 'place-1', name: 'name 1', lat: 1.0, lng: 1.1 },
+      { id: 'id-2', placeId: 'place-2', name: 'name 2', lat: 2.0, lng: 2.2 },
+      { id: 'id-3', placeId: 'place-3', name: 'name 3', lat: 3.0, lng: 3.3 },
+      { id: 'id-4', placeId: 'place-4', name: 'name 4', lat: 4.0, lng: 4.4 }
     ]
     const routeState: RouteState = [
       { id: 'id-1', position: 1 },
@@ -117,18 +117,54 @@ describe('buildConnections function', () => {
     const expectedConnections: Connection[] = [
       {
         id: 'id-3*id-1',
-        origin: { id: 'id-3', lat: 3.0, lng: 3.3 },
-        destination: { id: 'id-1', lat: 1.0, lng: 1.1 }
+        origin: {
+          id: 'id-3',
+          placeId: 'place-3',
+          name: 'name 3',
+          lat: 3.0,
+          lng: 3.3
+        },
+        destination: {
+          id: 'id-1',
+          placeId: 'place-1',
+          name: 'name 1',
+          lat: 1.0,
+          lng: 1.1
+        }
       },
       {
         id: 'id-1*id-2',
-        origin: { id: 'id-1', lat: 1.0, lng: 1.1 },
-        destination: { id: 'id-2', lat: 2.0, lng: 2.2 }
+        origin: {
+          id: 'id-1',
+          placeId: 'place-1',
+          name: 'name 1',
+          lat: 1.0,
+          lng: 1.1
+        },
+        destination: {
+          id: 'id-2',
+          placeId: 'place-2',
+          name: 'name 2',
+          lat: 2.0,
+          lng: 2.2
+        }
       },
       {
         id: 'id-2*id-4',
-        origin: { id: 'id-2', lat: 2.0, lng: 2.2 },
-        destination: { id: 'id-4', lat: 4.0, lng: 4.4 }
+        origin: {
+          id: 'id-2',
+          placeId: 'place-2',
+          name: 'name 2',
+          lat: 2.0,
+          lng: 2.2
+        },
+        destination: {
+          id: 'id-4',
+          placeId: 'place-4',
+          name: 'name 4',
+          lat: 4.0,
+          lng: 4.4
+        }
       }
     ]
     const connections = buildConnections(stops, routeState)
@@ -137,10 +173,10 @@ describe('buildConnections function', () => {
 
   it('should ignore stops that are missing from route state', () => {
     const stops: RouteStop[] = [
-      { id: 'id-1', lat: 1.0, lng: 1.1 },
-      { id: 'id-2', lat: 2.0, lng: 2.2 },
-      { id: 'id-3', lat: 3.0, lng: 3.3 },
-      { id: 'id-4', lat: 4.0, lng: 4.4 }
+      { id: 'id-1', placeId: 'place-1', name: 'name 1', lat: 1.0, lng: 1.1 },
+      { id: 'id-2', placeId: 'place-2', name: 'name 2', lat: 2.0, lng: 2.2 },
+      { id: 'id-3', placeId: 'place-3', name: 'name 3', lat: 3.0, lng: 3.3 },
+      { id: 'id-4', placeId: 'place-4', name: 'name 4', lat: 4.0, lng: 4.4 }
     ]
     const routeState: RouteState = [
       { id: 'id-1', position: 1 },
@@ -150,13 +186,37 @@ describe('buildConnections function', () => {
     const expectedConnections: Connection[] = [
       {
         id: 'id-2*id-1',
-        origin: { id: 'id-2', lat: 2.0, lng: 2.2 },
-        destination: { id: 'id-1', lat: 1.0, lng: 1.1 }
+        origin: {
+          id: 'id-2',
+          placeId: 'place-2',
+          name: 'name 2',
+          lat: 2.0,
+          lng: 2.2
+        },
+        destination: {
+          id: 'id-1',
+          placeId: 'place-1',
+          name: 'name 1',
+          lat: 1.0,
+          lng: 1.1
+        }
       },
       {
         id: 'id-1*id-4',
-        origin: { id: 'id-1', lat: 1.0, lng: 1.1 },
-        destination: { id: 'id-4', lat: 4.0, lng: 4.4 }
+        origin: {
+          id: 'id-1',
+          placeId: 'place-1',
+          name: 'name 1',
+          lat: 1.0,
+          lng: 1.1
+        },
+        destination: {
+          id: 'id-4',
+          placeId: 'place-4',
+          name: 'name 4',
+          lat: 4.0,
+          lng: 4.4
+        }
       }
     ]
     const connections = buildConnections(stops, routeState)

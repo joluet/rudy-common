@@ -15,6 +15,8 @@ export type Connection = {
 
 export type RouteStop = {
   id: string
+  placeId: string
+  name: string
   lat: number
   lng: number
 }
