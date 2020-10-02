@@ -1,0 +1,275 @@
+import { RouteState, RouteStop, Connection, ConnectionMetadata } from '../types'
+import {
+  mergeRouteStates,
+  buildConnections,
+  calculateMetricsSums
+} from '../index'
+import { expect } from 'chai'
+import 'mocha'
+
+describe('mergeRouteStates function', () => {
+  it('should overwrite positions', () => {
+    const testStates: RouteState[] = [
+      [
+        { id: 'id-1', position: 0 },
+        { id: 'id-2', position: 1 },
+        { id: 'id-3', position: 2 },
+        { id: 'id-4', position: 3 }
+      ],
+      [
+        { id: 'id-1', position: 1 },
+        { id: 'id-2', position: 2 },
+        { id: 'id-3', position: 0 },
+        { id: 'id-4', position: 3 }
+      ]
+    ]
+
+    const expectedMergeResult = [
+      { id: 'id-1', position: 1 },
+      { id: 'id-2', position: 2 },
+      { id: 'id-3', position: 0 },
+      { id: 'id-4', position: 3 }
+    ].sort((a, b) => a.position - b.position)
+    const mergeResult = mergeRouteStates(testStates)
+    expect(mergeResult).to.deep.equal(expectedMergeResult)
+  })
+
+  it('should ensure delete always wins', () => {
+    const testStates: RouteState[] = [
+      [
+        { id: 'id-1', position: 0 },
+        { id: 'id-2', position: 1 },
+        { id: 'id-3', position: 2 },
+        { id: 'id-4', position: 3 }
+      ],
+      [
+        { id: 'id-1', position: 0 },
+        { id: 'id-2', position: 1 },
+        { id: 'id-3', position: -1 },
+        { id: 'id-4', position: 2 }
+      ],
+      [
+        { id: 'id-1', position: 2 },
+        { id: 'id-2', position: 3 },
+        { id: 'id-3', position: 0 },
+        { id: 'id-4', position: 1 }
+      ]
+    ]
+
+    const expectedMergeResult = [
+      { id: 'id-1', position: 1 },
+      { id: 'id-2', position: 2 },
+      { id: 'id-4', position: 0 }
+    ].sort((a, b) => a.position - b.position)
+    const mergeResult = mergeRouteStates(testStates)
+    expect(mergeResult).to.deep.equal(expectedMergeResult)
+  })
+
+  it('should ensure additions are included in merge', () => {
+    const testStates: RouteState[] = [
+      [
+        { id: 'id-1', position: 0 },
+        { id: 'id-2', position: 1 },
+        { id: 'id-3', position: 2 },
+        { id: 'id-4', position: 3 }
+      ],
+      [
+        { id: 'id-1', position: 0 },
+        { id: 'id-2', position: 1 },
+        { id: 'id-3', position: 2 },
+        { id: 'id-4', position: 3 },
+        { id: 'id-5', position: 4 }
+      ],
+      [
+        { id: 'id-1', position: 1 },
+        { id: 'id-2', position: 2 },
+        { id: 'id-3', position: 0 },
+        { id: 'id-4', position: 3 }
+      ]
+    ]
+
+    const expectedMergeResult = [
+      { id: 'id-1', position: 1 },
+      { id: 'id-2', position: 2 },
+      { id: 'id-3', position: 0 },
+      { id: 'id-4', position: 3 },
+      { id: 'id-5', position: 4 }
+    ].sort((a, b) => a.position - b.position)
+    const mergeResult = mergeRouteStates(testStates)
+    expect(mergeResult).to.deep.equal(expectedMergeResult)
+  })
+})
+
+describe('buildConnections function', () => {
+  it('should use order from route state', () => {
+    const stops: RouteStop[] = [
+      { id: 'id-1', lat: 1.0, lng: 1.1 },
+      { id: 'id-2', lat: 2.0, lng: 2.2 },
+      { id: 'id-3', lat: 3.0, lng: 3.3 },
+      { id: 'id-4', lat: 4.0, lng: 4.4 }
+    ]
+    const routeState: RouteState = [
+      { id: 'id-1', position: 1 },
+      { id: 'id-2', position: 2 },
+      { id: 'id-3', position: 0 },
+      { id: 'id-4', position: 3 }
+    ]
+    const expectedConnections: Connection[] = [
+      {
+        id: 'id-3*id-1',
+        origin: { id: 'id-3', lat: 3.0, lng: 3.3 },
+        destination: { id: 'id-1', lat: 1.0, lng: 1.1 }
+      },
+      {
+        id: 'id-1*id-2',
+        origin: { id: 'id-1', lat: 1.0, lng: 1.1 },
+        destination: { id: 'id-2', lat: 2.0, lng: 2.2 }
+      },
+      {
+        id: 'id-2*id-4',
+        origin: { id: 'id-2', lat: 2.0, lng: 2.2 },
+        destination: { id: 'id-4', lat: 4.0, lng: 4.4 }
+      }
+    ]
+    const connections = buildConnections(stops, routeState)
+    expect(connections).to.deep.equal(expectedConnections)
+  })
+
+  it('should ignore stops that are missing from route state', () => {
+    const stops: RouteStop[] = [
+      { id: 'id-1', lat: 1.0, lng: 1.1 },
+      { id: 'id-2', lat: 2.0, lng: 2.2 },
+      { id: 'id-3', lat: 3.0, lng: 3.3 },
+      { id: 'id-4', lat: 4.0, lng: 4.4 }
+    ]
+    const routeState: RouteState = [
+      { id: 'id-1', position: 1 },
+      { id: 'id-2', position: 0 },
+      { id: 'id-4', position: 2 }
+    ]
+    const expectedConnections: Connection[] = [
+      {
+        id: 'id-2*id-1',
+        origin: { id: 'id-2', lat: 2.0, lng: 2.2 },
+        destination: { id: 'id-1', lat: 1.0, lng: 1.1 }
+      },
+      {
+        id: 'id-1*id-4',
+        origin: { id: 'id-1', lat: 1.0, lng: 1.1 },
+        destination: { id: 'id-4', lat: 4.0, lng: 4.4 }
+      }
+    ]
+    const connections = buildConnections(stops, routeState)
+    expect(connections).to.deep.equal(expectedConnections)
+  })
+})
+
+describe('calculateMetricsSums function', () => {
+  it('should add up all metrics correctly', () => {
+    const currentConnections: ConnectionMetadata[] = [
+      {
+        id: 'id-1*id-2',
+        duration: 1,
+        distance: 10,
+        polyline: ''
+      },
+      {
+        id: 'id-2*id-3',
+        duration: 2,
+        distance: 20,
+        polyline: ''
+      },
+      {
+        id: 'id-3*id-4',
+        duration: 3,
+        distance: 30,
+        polyline: ''
+      }
+    ]
+    const expextedMetricsSums = {
+      duration: 6,
+      distance: 60,
+      stopsCount: 4
+    }
+    const metricsSums = calculateMetricsSums(currentConnections, [], [])
+    expect(metricsSums).to.deep.equal(expextedMetricsSums)
+  })
+
+  it('should exclude deleted connections', () => {
+    const currentConnections: ConnectionMetadata[] = [
+      {
+        id: 'id-1*id-2',
+        duration: 1,
+        distance: 10,
+        polyline: ''
+      },
+      {
+        id: 'id-2*id-3',
+        duration: 2,
+        distance: 20,
+        polyline: ''
+      },
+      {
+        id: 'id-3*id-4',
+        duration: 3,
+        distance: 30,
+        polyline: ''
+      }
+    ]
+    const deletedConnections = ['id-2*id-3']
+    const expextedMetricsSums = {
+      duration: 4,
+      distance: 40,
+      stopsCount: 3
+    }
+    const metricsSums = calculateMetricsSums(
+      currentConnections,
+      deletedConnections,
+      []
+    )
+    expect(metricsSums).to.deep.equal(expextedMetricsSums)
+  })
+
+  it('should consider added and deleted connections', () => {
+    const currentConnections: ConnectionMetadata[] = [
+      {
+        id: 'id-1*id-2',
+        duration: 1,
+        distance: 10,
+        polyline: ''
+      },
+      {
+        id: 'id-2*id-3',
+        duration: 2,
+        distance: 20,
+        polyline: ''
+      },
+      {
+        id: 'id-3*id-4',
+        duration: 3,
+        distance: 30,
+        polyline: ''
+      }
+    ]
+    const addedConnections = [
+      {
+        id: 'id-4*id-5',
+        duration: 4,
+        distance: 40,
+        polyline: ''
+      }
+    ]
+    const deletedConnections = ['id-2*id-3']
+    const expextedMetricsSums = {
+      duration: 8,
+      distance: 80,
+      stopsCount: 4
+    }
+    const metricsSums = calculateMetricsSums(
+      currentConnections,
+      deletedConnections,
+      addedConnections
+    )
+    expect(metricsSums).to.deep.equal(expextedMetricsSums)
+  })
+})

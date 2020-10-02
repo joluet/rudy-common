@@ -1,0 +1,16 @@
+{
+  "name": "rudy-common",
+  "version": "1.0.0",
+  "description": "Common utils shared between Rudy Firebase function and mobile app",
+  "main": "./lib/index.js",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "build": "rm -rf lib && yarn run test && tsc",
+    "test": "mocha -r ts-node/register ./src/test/**/**.ts"
+  },
+  "devDependencies": {
+    "prettier": "^2.1.2",
+    "typescript": "^4.0.3"
+  }
+}
