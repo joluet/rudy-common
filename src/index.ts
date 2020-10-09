@@ -1,15 +1,31 @@
-import { RouteState, RouteStop, Connection, ConnectionMetadata } from './types'
+import {
+  RouteState,
+  RouteStop,
+  Connection,
+  ConnectionMetadata,
+  RouteUserRole,
+  RouteUser
+} from './types'
 
-export { RouteState, RouteStop, Connection, ConnectionMetadata }
+export {
+  RouteState,
+  RouteStop,
+  Connection,
+  ConnectionMetadata,
+  RouteUserRole,
+  RouteUser
+}
 
 export const mergeRouteStates = (routeStates: RouteState[]): RouteState => {
   const mergedState = [...routeStates]
     .reverse()
     .reduce((mergedState: RouteState, currentState: RouteState) => {
-      const deletedInCurrent = currentState.filter(item => item.position === -1)
+      const deletedInCurrent = currentState.filter(
+        (item) => item.position === -1
+      )
       return mergedState
-        .map(item => {
-          if (deletedInCurrent.find(deleted => item.id === deleted.id)) {
+        .map((item) => {
+          if (deletedInCurrent.find((deleted) => item.id === deleted.id)) {
             return { ...item, position: -1 }
           } else {
             return item
@@ -17,11 +33,11 @@ export const mergeRouteStates = (routeStates: RouteState[]): RouteState => {
         })
         .concat(
           currentState.filter(
-            item => !mergedState.some(merged => merged.id === item.id)
+            (item) => !mergedState.some((merged) => merged.id === item.id)
           )
         )
     })
-    .filter(item => item.position !== -1)
+    .filter((item) => item.position !== -1)
   const sortedMergedState = [...mergedState].sort(
     (a, b) => a.position - b.position
   )
@@ -37,10 +53,10 @@ export const buildConnections = (
   routeState: RouteState
 ): Connection[] => {
   return routeStops
-    .filter(stop => routeState.find(item => stop.id === item.id))
+    .filter((stop) => routeState.find((item) => stop.id === item.id))
     .sort((a, b) => {
-      const positionA = routeState.find(item => item.id === a.id)!.position
-      const positionB = routeState.find(item => item.id === b.id)!.position
+      const positionA = routeState.find((item) => item.id === a.id)!.position
+      const positionB = routeState.find((item) => item.id === b.id)!.position
       return positionA - positionB
     })
     .reduce(
@@ -76,8 +92,8 @@ export const calculateMetricsSums = (
 } => {
   return currentConnections
     .filter(
-      connection =>
-        !deletedConnections.find(deleted => deleted === connection.id)
+      (connection) =>
+        !deletedConnections.find((deleted) => deleted === connection.id)
     )
     .concat(addedConnections)
     .reduce(

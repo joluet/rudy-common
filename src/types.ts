@@ -20,3 +20,13 @@ export type RouteStop = {
   lat: number
   lng: number
 }
+
+export enum RouteUserRole {
+  Owner,
+  Invited
+}
+
+export type RouteUser = {
+  id: string
+  role: RouteUserRole
+}

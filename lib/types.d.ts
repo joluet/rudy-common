@@ -20,3 +20,11 @@ export declare type RouteStop = {
     lat: number;
     lng: number;
 };
+export declare enum RouteUserRole {
+    Owner = 0,
+    Invited = 1
+}
+export declare type RouteUser = {
+    id: string;
+    role: RouteUserRole;
+};
