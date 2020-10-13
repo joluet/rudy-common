@@ -8,6 +8,13 @@ import { expect } from 'chai'
 import 'mocha'
 
 describe('mergeRouteStates function', () => {
+  it('should work when route state is empty', () => {
+    const testStates: RouteState[] = []
+
+    const mergeResult = mergeRouteStates(testStates)
+    expect(mergeResult).to.deep.equal([])
+  })
+
   it('should overwrite positions', () => {
     const testStates: RouteState[] = [
       [
