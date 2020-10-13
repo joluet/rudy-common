@@ -36,7 +36,7 @@ export const mergeRouteStates = (routeStates: RouteState[]): RouteState => {
             (item) => !mergedState.some((merged) => merged.id === item.id)
           )
         )
-    })
+    }, [])
     .filter((item) => item.position !== -1)
   const sortedMergedState = [...mergedState].sort(
     (a, b) => a.position - b.position
