@@ -28,12 +28,6 @@ export declare type RouteUser = {
     id: string;
     role: RouteUserRole;
 };
-export declare type AutosuggestResult = {
-    id: string;
-    name: string;
-    lat: number;
-    lng: number;
-};
 export declare type Place = {
     id: string;
     name: string;
@@ -41,4 +35,7 @@ export declare type Place = {
     lat: number;
     lng: number;
     category: string | undefined;
+};
+export declare type AutosuggestResult = Place & {
+    distance: number | undefined;
 };

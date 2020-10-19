@@ -31,13 +31,6 @@ export type RouteUser = {
   role: RouteUserRole
 }
 
-export type AutosuggestResult = {
-  id: string
-  name: string
-  lat: number
-  lng: number
-}
-
 export type Place = {
   id: string
   name: string
@@ -45,4 +38,8 @@ export type Place = {
   lat: number
   lng: number
   category: string | undefined
+}
+
+export type AutosuggestResult = Place & {
+  distance: number | undefined
 }
