@@ -30,3 +30,19 @@ export type RouteUser = {
   id: string
   role: RouteUserRole
 }
+
+export type AutosuggestResult = {
+  id: string
+  name: string
+  lat: number
+  lng: number
+}
+
+export type Place = {
+  id: string
+  name: string
+  address: string | undefined
+  lat: number
+  lng: number
+  category: string | undefined
+}

@@ -4,7 +4,9 @@ import {
   Connection,
   ConnectionMetadata,
   RouteUserRole,
-  RouteUser
+  RouteUser,
+  AutosuggestResult,
+  Place
 } from './types'
 
 export {
@@ -13,7 +15,9 @@ export {
   Connection,
   ConnectionMetadata,
   RouteUserRole,
-  RouteUser
+  RouteUser,
+  AutosuggestResult,
+  Place
 }
 
 export const mergeRouteStates = (routeStates: RouteState[]): RouteState => {
