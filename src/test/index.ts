@@ -339,4 +339,34 @@ describe('calculateMetricsSums function', () => {
     )
     expect(metricsSums).to.deep.equal(expextedMetricsSums)
   })
+
+  it('should return stopsCount=0 if route is empty', () => {
+    const currentConnections: ConnectionMetadata[] = [
+      {
+        id: 'id-1*id-2',
+        duration: 1,
+        distance: 10,
+        polyline: ''
+      },
+      {
+        id: 'id-2*id-3',
+        duration: 2,
+        distance: 20,
+        polyline: ''
+      }
+    ]
+    const addedConnections: ConnectionMetadata[] = []
+    const deletedConnections = ['id-1*id-2', 'id-2*id-3']
+    const expextedMetricsSums = {
+      duration: 0,
+      distance: 0,
+      stopsCount: 0
+    }
+    const metricsSums = calculateMetricsSums(
+      currentConnections,
+      deletedConnections,
+      addedConnections
+    )
+    expect(metricsSums).to.deep.equal(expextedMetricsSums)
+  })
 })
