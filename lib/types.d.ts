@@ -17,6 +17,8 @@ export declare type RouteStop = {
     id: string;
     placeId: string;
     name: string;
+    address?: string;
+    category?: string;
     lat: number;
     lng: number;
 };
