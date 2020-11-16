@@ -19,6 +19,7 @@ export type RouteStop = {
   name: string
   address?: string
   category?: string
+  type?: string
   lat: number
   lng: number
 }
@@ -37,9 +38,10 @@ export type Place = {
   id: string
   name: string
   address: string | undefined
+  category: string | undefined
+  type: string | undefined
   lat: number
   lng: number
-  category: string | undefined
 }
 
 export type AutosuggestResult = Place & {
