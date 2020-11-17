@@ -5,6 +5,7 @@ export type ConnectionMetadata = {
   duration: number
   distance: number
   polyline: string
+  errorCode?: string | null
 }
 
 export type Connection = {

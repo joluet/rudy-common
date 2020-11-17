@@ -7,6 +7,7 @@ export declare type ConnectionMetadata = {
     duration: number;
     distance: number;
     polyline: string;
+    errorCode?: string | null;
 };
 export declare type Connection = {
     id: string;
