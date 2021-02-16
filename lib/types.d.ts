@@ -16,14 +16,19 @@ export declare type Connection = {
 };
 export declare type RouteStop = {
     id: string;
-    placeId: string;
+    placeId?: string;
+    itemType: ItemType;
     name: string;
     address?: string;
     category?: string;
     type?: string;
-    lat: number;
-    lng: number;
+    lat?: number;
+    lng?: number;
 };
+export declare enum ItemType {
+    Stop = "Stop",
+    Section = "Section"
+}
 export declare enum RouteUserRole {
     Owner = 0,
     Invited = 1

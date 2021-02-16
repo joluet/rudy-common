@@ -1,4 +1,10 @@
-import { RouteState, RouteStop, Connection, ConnectionMetadata } from '../types'
+import {
+  RouteState,
+  RouteStop,
+  Connection,
+  ConnectionMetadata,
+  ItemType
+} from '../types'
 import {
   mergeRouteStates,
   buildConnections,
@@ -110,10 +116,38 @@ describe('mergeRouteStates function', () => {
 describe('buildConnections function', () => {
   it('should use order from route state', () => {
     const stops: RouteStop[] = [
-      { id: 'id-1', placeId: 'place-1', name: 'name 1', lat: 1.0, lng: 1.1 },
-      { id: 'id-2', placeId: 'place-2', name: 'name 2', lat: 2.0, lng: 2.2 },
-      { id: 'id-3', placeId: 'place-3', name: 'name 3', lat: 3.0, lng: 3.3 },
-      { id: 'id-4', placeId: 'place-4', name: 'name 4', lat: 4.0, lng: 4.4 }
+      {
+        id: 'id-1',
+        placeId: 'place-1',
+        name: 'name 1',
+        lat: 1.0,
+        lng: 1.1,
+        itemType: ItemType.Stop
+      },
+      {
+        id: 'id-2',
+        placeId: 'place-2',
+        name: 'name 2',
+        lat: 2.0,
+        lng: 2.2,
+        itemType: ItemType.Stop
+      },
+      {
+        id: 'id-3',
+        placeId: 'place-3',
+        name: 'name 3',
+        lat: 3.0,
+        lng: 3.3,
+        itemType: ItemType.Stop
+      },
+      {
+        id: 'id-4',
+        placeId: 'place-4',
+        name: 'name 4',
+        lat: 4.0,
+        lng: 4.4,
+        itemType: ItemType.Stop
+      }
     ]
     const routeState: RouteState = [
       { id: 'id-1', position: 1 },
@@ -129,14 +163,16 @@ describe('buildConnections function', () => {
           placeId: 'place-3',
           name: 'name 3',
           lat: 3.0,
-          lng: 3.3
+          lng: 3.3,
+          itemType: ItemType.Stop
         },
         destination: {
           id: 'id-1',
           placeId: 'place-1',
           name: 'name 1',
           lat: 1.0,
-          lng: 1.1
+          lng: 1.1,
+          itemType: ItemType.Stop
         }
       },
       {
@@ -146,14 +182,16 @@ describe('buildConnections function', () => {
           placeId: 'place-1',
           name: 'name 1',
           lat: 1.0,
-          lng: 1.1
+          lng: 1.1,
+          itemType: ItemType.Stop
         },
         destination: {
           id: 'id-2',
           placeId: 'place-2',
           name: 'name 2',
           lat: 2.0,
-          lng: 2.2
+          lng: 2.2,
+          itemType: ItemType.Stop
         }
       },
       {
@@ -163,14 +201,16 @@ describe('buildConnections function', () => {
           placeId: 'place-2',
           name: 'name 2',
           lat: 2.0,
-          lng: 2.2
+          lng: 2.2,
+          itemType: ItemType.Stop
         },
         destination: {
           id: 'id-4',
           placeId: 'place-4',
           name: 'name 4',
           lat: 4.0,
-          lng: 4.4
+          lng: 4.4,
+          itemType: ItemType.Stop
         }
       }
     ]
@@ -180,10 +220,38 @@ describe('buildConnections function', () => {
 
   it('should ignore stops that are missing from route state', () => {
     const stops: RouteStop[] = [
-      { id: 'id-1', placeId: 'place-1', name: 'name 1', lat: 1.0, lng: 1.1 },
-      { id: 'id-2', placeId: 'place-2', name: 'name 2', lat: 2.0, lng: 2.2 },
-      { id: 'id-3', placeId: 'place-3', name: 'name 3', lat: 3.0, lng: 3.3 },
-      { id: 'id-4', placeId: 'place-4', name: 'name 4', lat: 4.0, lng: 4.4 }
+      {
+        id: 'id-1',
+        placeId: 'place-1',
+        name: 'name 1',
+        lat: 1.0,
+        lng: 1.1,
+        itemType: ItemType.Stop
+      },
+      {
+        id: 'id-2',
+        placeId: 'place-2',
+        name: 'name 2',
+        lat: 2.0,
+        lng: 2.2,
+        itemType: ItemType.Stop
+      },
+      {
+        id: 'id-3',
+        placeId: 'place-3',
+        name: 'name 3',
+        lat: 3.0,
+        lng: 3.3,
+        itemType: ItemType.Stop
+      },
+      {
+        id: 'id-4',
+        placeId: 'place-4',
+        name: 'name 4',
+        lat: 4.0,
+        lng: 4.4,
+        itemType: ItemType.Stop
+      }
     ]
     const routeState: RouteState = [
       { id: 'id-1', position: 1 },
@@ -198,14 +266,16 @@ describe('buildConnections function', () => {
           placeId: 'place-2',
           name: 'name 2',
           lat: 2.0,
-          lng: 2.2
+          lng: 2.2,
+          itemType: ItemType.Stop
         },
         destination: {
           id: 'id-1',
           placeId: 'place-1',
           name: 'name 1',
           lat: 1.0,
-          lng: 1.1
+          lng: 1.1,
+          itemType: ItemType.Stop
         }
       },
       {
@@ -215,20 +285,104 @@ describe('buildConnections function', () => {
           placeId: 'place-1',
           name: 'name 1',
           lat: 1.0,
-          lng: 1.1
+          lng: 1.1,
+          itemType: ItemType.Stop
         },
         destination: {
           id: 'id-4',
           placeId: 'place-4',
           name: 'name 4',
           lat: 4.0,
-          lng: 4.4
+          lng: 4.4,
+          itemType: ItemType.Stop
         }
       }
     ]
     const connections = buildConnections(stops, routeState)
     expect(connections).to.deep.equal(expectedConnections)
   })
+})
+
+it('should ignore sections', () => {
+  const stops: RouteStop[] = [
+    {
+      id: 'id-1',
+      placeId: 'place-1',
+      name: 'name 1',
+      lat: 1.0,
+      lng: 1.1,
+      itemType: ItemType.Stop
+    },
+    {
+      id: 'id-2',
+      name: 'Section',
+      itemType: ItemType.Section
+    },
+    {
+      id: 'id-3',
+      placeId: 'place-3',
+      name: 'name 3',
+      lat: 3.0,
+      lng: 3.3,
+      itemType: ItemType.Stop
+    },
+    {
+      id: 'id-4',
+      placeId: 'place-4',
+      name: 'name 4',
+      lat: 4.0,
+      lng: 4.4,
+      itemType: ItemType.Stop
+    }
+  ]
+  const routeState: RouteState = [
+    { id: 'id-1', position: 0 },
+    { id: 'id-2', position: 1 },
+    { id: 'id-3', position: 2 },
+    { id: 'id-4', position: 3 }
+  ]
+  const expectedConnections: Connection[] = [
+    {
+      id: 'id-1*id-3',
+      origin: {
+        id: 'id-1',
+        placeId: 'place-1',
+        name: 'name 1',
+        lat: 1.0,
+        lng: 1.1,
+        itemType: ItemType.Stop
+      },
+      destination: {
+        id: 'id-3',
+        placeId: 'place-3',
+        name: 'name 3',
+        lat: 3.0,
+        lng: 3.3,
+        itemType: ItemType.Stop
+      }
+    },
+    {
+      id: 'id-3*id-4',
+      origin: {
+        id: 'id-3',
+        placeId: 'place-3',
+        name: 'name 3',
+        lat: 3.0,
+        lng: 3.3,
+        itemType: ItemType.Stop
+      },
+      destination: {
+        id: 'id-4',
+        placeId: 'place-4',
+        name: 'name 4',
+        lat: 4.0,
+        lng: 4.4,
+        itemType: ItemType.Stop
+      }
+    }
+  ]
+  const connections = buildConnections(stops, routeState)
+  expect(connections).to.deep.equal(expectedConnections)
 })
 
 describe('calculateMetricsSums function', () => {

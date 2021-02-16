@@ -1,6 +1,7 @@
 import {
   RouteState,
   RouteStop,
+  ItemType,
   Connection,
   ConnectionMetadata,
   RouteUserRole,
@@ -12,6 +13,7 @@ import {
 export {
   RouteState,
   RouteStop,
+  ItemType,
   Connection,
   ConnectionMetadata,
   RouteUserRole,
@@ -57,6 +59,7 @@ export const buildConnections = (
   routeState: RouteState
 ): Connection[] => {
   return routeStops
+    .filter((stop) => stop.itemType !== ItemType.Section)
     .filter((stop) => routeState.find((item) => stop.id === item.id))
     .sort((a, b) => {
       const positionA = routeState.find((item) => item.id === a.id)!.position
