@@ -49,6 +49,7 @@ export type Place = {
   type: string | undefined
   lat: number
   lng: number
+  vagueAddress: string | undefined
 }
 
 export type AutosuggestResult = Place & {
