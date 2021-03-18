@@ -45,6 +45,7 @@ export declare type Place = {
     type: string | undefined;
     lat: number;
     lng: number;
+    vagueAddres: string | undefined;
 };
 export declare type AutosuggestResult = Place & {
     distance: number | undefined;
