@@ -41,6 +41,8 @@ export enum RouteUserRole {
 export type RouteUser = {
   id: string
   role: RouteUserRole
+  name?: string
+  avatarUrl?: string
 }
 
 export type Place = {

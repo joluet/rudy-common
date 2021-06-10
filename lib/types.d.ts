@@ -38,6 +38,8 @@ export declare enum RouteUserRole {
 export declare type RouteUser = {
     id: string;
     role: RouteUserRole;
+    name?: string;
+    avatarUrl?: string;
 };
 export declare type Place = {
     id: string;
