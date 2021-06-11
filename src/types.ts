@@ -19,6 +19,7 @@ export type RouteStop = {
   placeId?: string
   itemType: ItemType
   name: string
+  nameOverride?: string
   address?: string
   category?: string
   type?: string
@@ -48,6 +49,7 @@ export type RouteUser = {
 export type Place = {
   id: string
   name: string
+  nameOverride?: string
   address: string | undefined
   category: string | undefined
   type: string | undefined
