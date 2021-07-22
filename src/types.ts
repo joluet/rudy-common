@@ -60,4 +60,5 @@ export type Place = {
 
 export type AutosuggestResult = Place & {
   distance: number | undefined
+  rating: number | undefined
 }
