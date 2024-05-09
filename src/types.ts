@@ -6,12 +6,14 @@ export type ConnectionMetadata = {
   distance: number
   polyline: string
   errorCode?: string | null
+  waypoints?: LatLng[]
 }
 
 export type Connection = {
   id: string
   origin: RouteStop
   destination: RouteStop
+  waypoints?: LatLng[]
 }
 
 export type RouteStop = {
@@ -31,7 +33,8 @@ export type RouteStop = {
 
 export enum ItemType {
   Stop = 'Stop',
-  Section = 'Section'
+  Section = 'Section',
+  Waypoint = 'Waypoint'
 }
 
 export enum RouteUserRole {
@@ -61,4 +64,9 @@ export type Place = {
 export type AutosuggestResult = Place & {
   distance: number | undefined
   rating: number | undefined
+}
+
+export type LatLng = {
+  latitude: number
+  longitude: number
 }

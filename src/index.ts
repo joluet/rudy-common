@@ -74,13 +74,26 @@ export const buildConnections = (
         array: RouteStop[]
       ) => {
         if (index < array.length - 1) {
-          const origin = stop
-          const destination = array[index + 1]
-          result.push({
-            id: `${origin.id}*${destination.id}`,
-            origin: origin,
-            destination: destination
-          })
+          if (stop.itemType === ItemType.Stop) {
+            const origin = stop
+            const destination = array.slice(index + 1).find((stop) => stop.itemType === ItemType.Stop)
+            if (destination) {
+              result.push({
+                id: `${origin.id}*${destination.id}`,
+                origin: origin,
+                destination: destination
+              })
+            }
+          } else if (stop.itemType === ItemType.Waypoint && stop.lat && stop.lng) {
+            if (result[result.length -1].waypoints) {
+              result[result.length -1].waypoints!.push({ latitude: stop.lat, longitude: stop.lng})
+            } else {
+              result[result.length -1] = {
+                ...result[result.length -1],
+                waypoints: [{ latitude: stop.lat, longitude: stop.lng}]
+              }
+            }
+          }
         }
         return result
       },
