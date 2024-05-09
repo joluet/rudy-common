@@ -2,11 +2,13 @@ import {
   RouteState,
   RouteStop,
   Connection,
+  ConnectionMetadata,
   ItemType
 } from '../types'
 import {
   mergeRouteStates,
   buildConnections,
+  calculateMetricsSums
 } from '../index'
 import { expect } from 'chai'
 import 'mocha'
@@ -533,5 +535,145 @@ describe('buildConnections function', () => {
     ]
     const connections = buildConnections(stops, routeState)
     expect(connections).to.deep.equal(expectedConnections)
+  })
+})
+
+describe('calculateMetricsSums function', () => {
+  it('should add up all metrics correctly', () => {
+    const currentConnections: ConnectionMetadata[] = [
+      {
+        id: 'id-1*id-2',
+        duration: 1,
+        distance: 10,
+        polyline: ''
+      },
+      {
+        id: 'id-2*id-3',
+        duration: 2,
+        distance: 20,
+        polyline: ''
+      },
+      {
+        id: 'id-3*id-4',
+        duration: 3,
+        distance: 30,
+        polyline: ''
+      }
+    ]
+    const expextedMetricsSums = {
+      duration: 6,
+      distance: 60,
+      stopsCount: 4
+    }
+    const metricsSums = calculateMetricsSums(currentConnections, [], [])
+    expect(metricsSums).to.deep.equal(expextedMetricsSums)
+  })
+
+  it('should exclude deleted connections', () => {
+    const currentConnections: ConnectionMetadata[] = [
+      {
+        id: 'id-1*id-2',
+        duration: 1,
+        distance: 10,
+        polyline: ''
+      },
+      {
+        id: 'id-2*id-3',
+        duration: 2,
+        distance: 20,
+        polyline: ''
+      },
+      {
+        id: 'id-3*id-4',
+        duration: 3,
+        distance: 30,
+        polyline: ''
+      }
+    ]
+    const deletedConnections = ['id-2*id-3']
+    const expextedMetricsSums = {
+      duration: 4,
+      distance: 40,
+      stopsCount: 3
+    }
+    const metricsSums = calculateMetricsSums(
+      currentConnections,
+      deletedConnections,
+      []
+    )
+    expect(metricsSums).to.deep.equal(expextedMetricsSums)
+  })
+
+  it('should consider added and deleted connections', () => {
+    const currentConnections: ConnectionMetadata[] = [
+      {
+        id: 'id-1*id-2',
+        duration: 1,
+        distance: 10,
+        polyline: ''
+      },
+      {
+        id: 'id-2*id-3',
+        duration: 2,
+        distance: 20,
+        polyline: ''
+      },
+      {
+        id: 'id-3*id-4',
+        duration: 3,
+        distance: 30,
+        polyline: ''
+      }
+    ]
+    const addedConnections = [
+      {
+        id: 'id-4*id-5',
+        duration: 4,
+        distance: 40,
+        polyline: ''
+      }
+    ]
+    const deletedConnections = ['id-2*id-3']
+    const expextedMetricsSums = {
+      duration: 8,
+      distance: 80,
+      stopsCount: 4
+    }
+    const metricsSums = calculateMetricsSums(
+      currentConnections,
+      deletedConnections,
+      addedConnections
+    )
+    expect(metricsSums).to.deep.equal(expextedMetricsSums)
+  })
+
+  it('should return stopsCount=0 if route is empty', () => {
+    const currentConnections: ConnectionMetadata[] = [
+      {
+        id: 'id-1*id-2',
+        duration: 1,
+        distance: 10,
+        polyline: ''
+      },
+      {
+        id: 'id-2*id-3',
+        duration: 2,
+        distance: 20,
+        polyline: ''
+      }
+    ]
+    const addedConnections: ConnectionMetadata[] = []
+    const deletedConnections = ['id-1*id-2', 'id-2*id-3']
+    const expextedMetricsSums = {
+      duration: 0,
+      distance: 0,
+      stopsCount: 0
+    }
+    const metricsSums = calculateMetricsSums(
+      currentConnections,
+      deletedConnections,
+      addedConnections
+    )
+    expect(metricsSums).to.deep.equal(expextedMetricsSums)
   })
 })
