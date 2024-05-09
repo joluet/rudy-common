@@ -100,32 +100,3 @@ export const buildConnections = (
       []
     )
 }
-
-export const calculateMetricsSums = (
-  currentConnections: ConnectionMetadata[],
-  deletedConnections: string[],
-  addedConnections: ConnectionMetadata[]
-): {
-  duration: number
-  distance: number
-  stopsCount: number
-} => {
-  const resultingConnections = currentConnections
-    .filter(
-      (connection) =>
-        !deletedConnections.find((deleted) => deleted === connection.id)
-    )
-    .concat(addedConnections)
-  if (resultingConnections.length === 0) {
-    return { duration: 0, distance: 0, stopsCount: 0 }
-  } else {
-    return resultingConnections.reduce(
-      (sumDurationAndDistance, connection) => ({
-        duration: sumDurationAndDistance.duration + connection.duration,
-        distance: sumDurationAndDistance.distance + connection.distance,
-        stopsCount: sumDurationAndDistance.stopsCount + 1
-      }),
-      { duration: 0, distance: 0, stopsCount: 1 }
-    )
-  }
-}
