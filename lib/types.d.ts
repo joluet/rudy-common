@@ -8,13 +8,11 @@ export declare type ConnectionMetadata = {
     distance: number;
     polyline: string;
     errorCode?: string | null;
-    waypoints?: LatLng[];
 };
 export declare type Connection = {
     id: string;
     origin: RouteStop;
     destination: RouteStop;
-    waypoints?: LatLng[];
 };
 export declare type RouteStop = {
     id: string;

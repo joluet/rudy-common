@@ -6,14 +6,12 @@ export type ConnectionMetadata = {
   distance: number
   polyline: string
   errorCode?: string | null
-  waypoints?: LatLng[]
 }
 
 export type Connection = {
   id: string
   origin: RouteStop
   destination: RouteStop
-  waypoints?: LatLng[]
 }
 
 export type RouteStop = {
