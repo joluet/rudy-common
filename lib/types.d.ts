@@ -30,7 +30,8 @@ export declare type RouteStop = {
 };
 export declare enum ItemType {
     Stop = "Stop",
-    Section = "Section"
+    Section = "Section",
+    Waypoint = "Waypoint"
 }
 export declare enum RouteUserRole {
     Owner = 0,
@@ -56,4 +57,8 @@ export declare type Place = {
 export declare type AutosuggestResult = Place & {
     distance: number | undefined;
     rating: number | undefined;
+};
+export declare type LatLng = {
+    latitude: number;
+    longitude: number;
 };
