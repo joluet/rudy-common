@@ -27,6 +27,7 @@ export declare type RouteStop = {
     lng?: number;
     description?: string;
     vagueAddress?: string;
+    radius?: string;
 };
 export declare enum ItemType {
     Stop = "Stop",
