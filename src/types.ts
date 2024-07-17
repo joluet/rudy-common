@@ -27,6 +27,7 @@ export type RouteStop = {
   lng?: number
   description?: string
   vagueAddress?: string
+  radius?: string
 }
 
 export enum ItemType {
