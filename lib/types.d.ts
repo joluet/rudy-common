@@ -14,6 +14,11 @@ export declare type Connection = {
     origin: RouteStop;
     destination: RouteStop;
 };
+export declare type Photo = {
+    uri: string;
+    path: string;
+    fileName: string;
+};
 export declare type RouteStop = {
     id: string;
     placeId?: string;
@@ -28,6 +33,8 @@ export declare type RouteStop = {
     description?: string;
     vagueAddress?: string;
     radius?: string;
+    photos?: Photo[];
+    date?: string;
 };
 export declare enum ItemType {
     Stop = "Stop",
