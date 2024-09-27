@@ -7,7 +7,8 @@ import {
   RouteUserRole,
   RouteUser,
   AutosuggestResult,
-  Place
+  Place,
+  Photo
 } from './types'
 
 export {
@@ -19,7 +20,8 @@ export {
   RouteUserRole,
   RouteUser,
   AutosuggestResult,
-  Place
+  Place,
+  Photo
 }
 
 export const mergeRouteStates = (routeStates: RouteState[]): RouteState => {
