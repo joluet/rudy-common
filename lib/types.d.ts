@@ -8,6 +8,7 @@ export declare type ConnectionMetadata = {
     distance: number;
     polyline: string;
     errorCode?: string | null;
+    transitType?: 'ferry' | 'to-terminal' | 'from-terminal';
 };
 export declare type Connection = {
     id: string;

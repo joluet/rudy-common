@@ -6,6 +6,7 @@ export type ConnectionMetadata = {
   distance: number
   polyline: string
   errorCode?: string | null
+  transitType?: 'ferry' | 'to-terminal' | 'from-terminal'
 }
 
 export type Connection = {
