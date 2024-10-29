@@ -2,18 +2,29 @@ export declare type RouteState = {
     id: string;
     position: number;
 }[];
+export declare type TransitType = 'ferry' | 'to-terminal' | 'from-terminal';
+export declare type FerryTerminal = {
+    location: {
+        lat: number;
+        lng: number;
+    };
+    name: string;
+};
 export declare type ConnectionMetadata = {
     id: string;
     duration: number;
     distance: number;
     polyline: string;
     errorCode?: string | null;
-    transitType?: 'ferry' | 'to-terminal' | 'from-terminal';
+    transitType?: TransitType;
+    arrival?: FerryTerminal;
+    departure?: FerryTerminal;
 };
 export declare type Connection = {
     id: string;
     origin: RouteStop;
     destination: RouteStop;
+    transitType?: TransitType;
 };
 export declare type Photo = {
     uri: string;
@@ -40,7 +51,9 @@ export declare type RouteStop = {
 export declare enum ItemType {
     Stop = "Stop",
     Section = "Section",
-    Waypoint = "Waypoint"
+    Waypoint = "Waypoint",
+    FerryTerminalArrival = "FerryTerminalArrival",
+    FerryTerminalDeparture = "FerryTerminalDeparture"
 }
 export declare enum RouteUserRole {
     Owner = 0,

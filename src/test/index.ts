@@ -173,7 +173,7 @@ describe('buildConnections function', () => {
           lat: 1.0,
           lng: 1.1,
           itemType: ItemType.Stop
-        }
+        },
       },
       {
         id: 'id-1*id-2',

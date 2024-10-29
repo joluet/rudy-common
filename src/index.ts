@@ -8,7 +8,7 @@ import {
   RouteUser,
   AutosuggestResult,
   Place,
-  Photo
+  Photo,
 } from './types'
 
 export {
@@ -78,11 +78,28 @@ export const buildConnections = (
         if (index < array.length - 1) {
           const origin = stop
           const destination = array[index + 1]
-          result.push({
-            id: `${origin.id}*${destination.id}`,
-            origin: origin,
-            destination: destination
-          })
+          if (stop.itemType === 'FerryTerminalDeparture') {
+            result.push({
+              id: `${origin.id}*${destination.id}`,
+              origin: origin,
+              destination: destination,
+              transitType: 'ferry'
+            })
+            result[index -1].transitType = 'to-terminal'
+          } else if (stop.itemType === 'FerryTerminalArrival') {
+            result.push({
+              id: `${origin.id}*${destination.id}`,
+              origin: origin,
+              destination: destination,
+              transitType: 'from-terminal'
+            })
+          } else {
+            result.push({
+              id: `${origin.id}*${destination.id}`,
+              origin: origin,
+              destination: destination,
+            })
+          }
         }
         return result
       },
