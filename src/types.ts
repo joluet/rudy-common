@@ -1,6 +1,6 @@
 export type RouteState = { id: string; position: number }[]
 
-export type TransitType = 'ferry' | 'to-terminal' | 'from-terminal'
+export type TransitType = 'ferry' | 'to-terminal' | 'from-terminal' | 'from-and-to-terminal'
 
 export type FerryTerminal = {
   location: { lat: number, lng: number},

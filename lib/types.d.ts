@@ -2,7 +2,7 @@ export declare type RouteState = {
     id: string;
     position: number;
 }[];
-export declare type TransitType = 'ferry' | 'to-terminal' | 'from-terminal';
+export declare type TransitType = 'ferry' | 'to-terminal' | 'from-terminal' | 'from-and-to-terminal';
 export declare type FerryTerminal = {
     location: {
         lat: number;
