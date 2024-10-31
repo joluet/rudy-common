@@ -47,6 +47,7 @@ export declare type RouteStop = {
     radius?: string;
     photos?: Photo[];
     date?: string;
+    position?: number;
 };
 export declare enum ItemType {
     Stop = "Stop",

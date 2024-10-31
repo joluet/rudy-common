@@ -47,6 +47,7 @@ export type RouteStop = {
   radius?: string
   photos?: Photo[]
   date?: string
+  position?: number
 }
 
 export enum ItemType {
