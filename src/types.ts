@@ -1,6 +1,11 @@
 export type RouteState = { id: string; position: number }[]
 
-export type TransitType = 'ferry' | 'to-terminal' | 'from-terminal' | 'from-and-to-terminal'
+export enum TransitType {
+  Ferry= 'ferry',
+  ToTerminal = 'to-terminal',
+  FromTerminal = 'from-terminal',
+  FromAndToTerminal = 'from-and-to-terminal',
+}
 
 export type FerryTerminal = {
   location: { lat: number, lng: number},

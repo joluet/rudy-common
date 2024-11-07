@@ -9,6 +9,7 @@ import {
   AutosuggestResult,
   Place,
   Photo,
+  TransitType,
 } from './types'
 
 export {
@@ -102,8 +103,6 @@ export const buildConnections = (
   routeStops: RouteStop[],
   routeState: RouteState
 ): Connection[] => {
-  let stopPrevieousFerryId: null | string = null
-  let nextStopAfterFerryId: null | string = null
   return routeStops
     .filter((stop) => stop.itemType !== ItemType.Section)
     .filter((stop) => routeState.find((item) => stop.id === item.id))
@@ -122,42 +121,40 @@ export const buildConnections = (
         if (index < array.length - 1) {
           const origin = stop
           const destination = array[index + 1]
-          if (stop.itemType === 'FerryTerminalDeparture') {
-            if (!stopPrevieousFerryId ) {
-              stopPrevieousFerryId = array[index -1].id
-              result[index -1].transitType = 'to-terminal'
+          if (destination.itemType === ItemType.FerryTerminalDeparture) {
+            if (origin.itemType === ItemType.FerryTerminalArrival) {
+              result.push({
+                id: destination.id,
+                origin: origin,
+                destination: destination,
+                transitType: TransitType.FromAndToTerminal
+              })
             } else {
-              result[index -1].transitType = 'from-and-to-terminal'
+              result.push({
+                id: destination.id,
+                origin: origin,
+                destination: destination,
+                transitType: TransitType.ToTerminal
+              })
             }
-            if (!nextStopAfterFerryId) {
-              nextStopAfterFerryId = array.slice(index).find((stop) => stop.itemType === ItemType.Stop)!.id
-            }
+          } else if (
+            destination.itemType === ItemType.FerryTerminalArrival  ||
+            destination.itemType === ItemType.FerryTerminalTransit
+          ) {
             result.push({
-              id: getFerryConnectionId({
-                prevStopId: stopPrevieousFerryId,
-                nextStopId: nextStopAfterFerryId,
-                departureTerminalName: origin.name,
-                arrivalTerminalName: destination.name
-              }),
+              id: `${origin.id}-${destination.name.replace(/ /g,'')}`,
               origin: origin,
               destination: destination,
-              transitType: 'ferry'
+              transitType: TransitType.Ferry
             })
-            result[index -1].id = getToFerryTerminalConnectionId({
-              prevStopId: stopPrevieousFerryId,
-              nextStopId: nextStopAfterFerryId,
-              departureTerminalName: origin.name
-            })
-          } else if (stop.itemType === 'FerryTerminalArrival' && nextStopAfterFerryId && stopPrevieousFerryId) {
+          } else if (
+            origin.itemType === ItemType.FerryTerminalArrival
+          ) {
             result.push({
-              id: getFromFerryTerminalConnectionId({
-                prevStopId: stopPrevieousFerryId,
-                nextStopId: nextStopAfterFerryId,
-                arrivalTerminalName: origin.name
-              }),
+              id: origin.id,
               origin: origin,
               destination: destination,
-              transitType: 'from-terminal'
+              transitType: TransitType.FromTerminal
             })
           } else {
             result.push({
@@ -165,8 +162,6 @@ export const buildConnections = (
               origin: origin,
               destination: destination,
             })
-            stopPrevieousFerryId = null
-            nextStopAfterFerryId = null
           }
         }
         return result
