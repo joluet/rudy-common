@@ -142,7 +142,7 @@ export const buildConnections = (
             destination.itemType === ItemType.FerryTerminalTransit
           ) {
             result.push({
-              id: `${origin.id}-${destination.name.replace(/ /g,'')}`,
+              id: `${origin.id}*${destination.name.replace(/ /g,'')}`,
               origin: origin,
               destination: destination,
               transitType: TransitType.Ferry
