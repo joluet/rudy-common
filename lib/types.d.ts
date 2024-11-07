@@ -54,7 +54,8 @@ export declare enum ItemType {
     Section = "Section",
     Waypoint = "Waypoint",
     FerryTerminalArrival = "FerryTerminalArrival",
-    FerryTerminalDeparture = "FerryTerminalDeparture"
+    FerryTerminalDeparture = "FerryTerminalDeparture",
+    FerryTerminalTransit = "FerryTerminalTransit"
 }
 export declare enum RouteUserRole {
     Owner = 0,

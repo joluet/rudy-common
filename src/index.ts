@@ -135,7 +135,7 @@ export const buildConnections = (
             result.push({
               id: getFerryConnectionId({
                 prevStopId: stopPrevieousFerryId,
-                nextStopId:nextStopAfterFerryId,
+                nextStopId: nextStopAfterFerryId,
                 departureTerminalName: origin.name,
                 arrivalTerminalName: destination.name
               }),
@@ -145,14 +145,14 @@ export const buildConnections = (
             })
             result[index -1].id = getToFerryTerminalConnectionId({
               prevStopId: stopPrevieousFerryId,
-              nextStopId:nextStopAfterFerryId,
+              nextStopId: nextStopAfterFerryId,
               departureTerminalName: origin.name
             })
           } else if (stop.itemType === 'FerryTerminalArrival' && nextStopAfterFerryId && stopPrevieousFerryId) {
             result.push({
               id: getFromFerryTerminalConnectionId({
                 prevStopId: stopPrevieousFerryId,
-                nextStopId:nextStopAfterFerryId,
+                nextStopId: nextStopAfterFerryId,
                 arrivalTerminalName: origin.name
               }),
               origin: origin,
