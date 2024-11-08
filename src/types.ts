@@ -1,3 +1,5 @@
+import { Moment } from 'moment'
+
 export type RouteState = { id: string; position: number }[]
 
 export enum TransitType {
@@ -51,7 +53,7 @@ export type RouteStop = {
   vagueAddress?: string
   radius?: string
   photos?: Photo[]
-  date?: string
+  date?: Moment
   position?: number
 }
 
