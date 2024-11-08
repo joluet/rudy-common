@@ -10,6 +10,7 @@ import {
   Place,
   Photo,
   TransitType,
+  FerryTerminal,
 } from './types'
 
 export {
@@ -22,7 +23,9 @@ export {
   RouteUser,
   AutosuggestResult,
   Place,
-  Photo
+  Photo,
+  TransitType,
+  FerryTerminal
 }
 
 export const mergeRouteStates = (routeStates: RouteState[]): RouteState => {
