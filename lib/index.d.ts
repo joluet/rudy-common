@@ -6,17 +6,6 @@ export declare const getToFerryTerminalConnectionId: ({ prevStopId, nextStopId, 
     nextStopId: string;
     departureTerminalName: string;
 }) => string;
-export declare const getFerryConnectionId: ({ prevStopId, nextStopId, departureTerminalName, arrivalTerminalName }: {
-    prevStopId: string;
-    nextStopId: string;
-    departureTerminalName: string;
-    arrivalTerminalName: string;
-}) => string;
-export declare const getFromFerryTerminalConnectionId: ({ prevStopId, nextStopId, arrivalTerminalName }: {
-    prevStopId: string;
-    nextStopId: string;
-    arrivalTerminalName: string;
-}) => string;
 export declare const buildConnections: (routeStops: RouteStop[], routeState: RouteState) => Connection[];
 export declare const calculateMetricsSums: (currentConnections: ConnectionMetadata[], deletedConnections: string[], addedConnections: ConnectionMetadata[]) => {
     duration: number;

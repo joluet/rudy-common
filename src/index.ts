@@ -73,35 +73,6 @@ export const getToFerryTerminalConnectionId = ({
   return `${prevStopId}*${nextStopId}-${trimmedName}`
 }
 
-export const getFerryConnectionId = ({
-  prevStopId,
-  nextStopId,
-  departureTerminalName,
-  arrivalTerminalName
-}: {
-  prevStopId: string,
-  nextStopId: string,
-  departureTerminalName: string
-  arrivalTerminalName: string
-}) => {
-  const trimmedDepartureName = departureTerminalName.replace(/ /g,'')
-  const trimmedArrivalName = arrivalTerminalName.replace(/ /g,'')
-  return `${prevStopId}*${nextStopId}-${trimmedDepartureName}-${trimmedArrivalName}`
-}
-
-export const getFromFerryTerminalConnectionId = ({
-  prevStopId,
-  nextStopId,
-  arrivalTerminalName
-}: {
-  prevStopId: string,
-  nextStopId: string,
-  arrivalTerminalName: string
-}) => {
-  const trimmedName = arrivalTerminalName.replace(/ /g,'')
-  return `${prevStopId}*${nextStopId}-${trimmedName}`
-}
-
 export const buildConnections = (
   routeStops: RouteStop[],
   routeState: RouteState
@@ -124,47 +95,52 @@ export const buildConnections = (
         if (index < array.length - 1) {
           const origin = stop
           const destination = array[index + 1]
-          if (destination.itemType === ItemType.FerryTerminalDeparture) {
-            if (origin.itemType === ItemType.FerryTerminalArrival) {
-              result.push({
-                id: destination.id,
-                origin: origin,
-                destination: destination,
-                transitType: TransitType.FromAndToTerminal
-              })
-            } else {
-              result.push({
-                id: destination.id,
-                origin: origin,
-                destination: destination,
-                transitType: TransitType.ToTerminal
-              })
-            }
-          } else if (
-            destination.itemType === ItemType.FerryTerminalArrival  ||
-            destination.itemType === ItemType.FerryTerminalTransit
-          ) {
+
+          if (origin.itemType === ItemType.FerryTerminalDeparture) {
             result.push({
               id: `${origin.id}*${destination.name.replace(/ /g,'')}`,
               origin: origin,
               destination: destination,
               transitType: TransitType.Ferry
             })
-          } else if (
-            origin.itemType === ItemType.FerryTerminalArrival
-          ) {
+          } else if (origin.itemType === ItemType.FerryTerminalArrival) {
+            if (destination.itemType === ItemType.FerryTerminalDeparture) {
+              result.push({
+                id: origin.id,
+                origin: origin,
+                destination: destination,
+                transitType: TransitType.FromAndToTerminal
+              })
+            } else {
+              result.push({
+                id: origin.id,
+                origin: origin,
+                destination: destination,
+                transitType: TransitType.FromTerminal
+              })
+            }
+          } else if (origin.itemType === ItemType.FerryTerminalTransit) {
             result.push({
-              id: origin.id,
+              id: `${origin.id}*${destination.name.replace(/ /g,'')}`,
               origin: origin,
               destination: destination,
-              transitType: TransitType.FromTerminal
+              transitType: TransitType.Ferry
             })
           } else {
-            result.push({
-              id: `${origin.id}*${destination.id}`,
-              origin: origin,
-              destination: destination,
-            })
+            if (destination.itemType === ItemType.FerryTerminalDeparture) {
+              result.push({
+                id: destination.id,
+                origin: origin,
+                destination: destination,
+                transitType: TransitType.ToTerminal
+              })
+            } else {
+              result.push({
+                id: `${origin.id}*${destination.id}`,
+                origin: origin,
+                destination: destination,
+              })
+            }
           }
         }
         return result

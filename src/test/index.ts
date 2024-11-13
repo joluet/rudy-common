@@ -835,7 +835,7 @@ describe('buildConnections function', () => {
         transitType: TransitType.Ferry
       },
       {
-        id: 'id-1*id-6*name4',
+        id: 'id-1*id-6*name3',
         origin: {
           id: 'id-1*id-6*name3',
           placeId: 'place-3',
