@@ -1,4 +1,3 @@
-import { Moment } from 'moment';
 export declare type RouteState = {
     id: string;
     position: number;
@@ -52,7 +51,7 @@ export declare type RouteStop = {
     vagueAddress?: string;
     radius?: string;
     photos?: Photo[];
-    date?: Moment;
+    date?: string;
     position?: number;
 };
 export declare enum ItemType {
