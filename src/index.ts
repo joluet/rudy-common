@@ -60,19 +60,6 @@ export const mergeRouteStates = (routeStates: RouteState[]): RouteState => {
   return result
 }
 
-export const getToFerryTerminalConnectionId = ({
-  prevStopId,
-  nextStopId,
-  departureTerminalName
-}: {
-  prevStopId: string,
-  nextStopId: string,
-  departureTerminalName: string
-}) => {
-  const trimmedName = departureTerminalName.replace(/ /g,'')
-  return `${prevStopId}*${nextStopId}-${trimmedName}`
-}
-
 export const buildConnections = (
   routeStops: RouteStop[],
   routeState: RouteState
