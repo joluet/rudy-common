@@ -53,6 +53,11 @@ export type RouteStop = {
   photos?: Photo[]
   date?: string
   position?: number
+  sectionProperties?: {
+    avoidTollRoads?: boolean
+    avoidHighways?: boolean
+    preferFerries?: boolean
+  }
 }
 
 export enum ItemType {
