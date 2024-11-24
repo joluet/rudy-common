@@ -24,12 +24,18 @@ export declare type ConnectionMetadata = {
     transitType?: TransitType;
     arrival?: FerryTerminal;
     departure?: FerryTerminal;
+    avoidHighways?: boolean;
+    avoidTollRoads?: boolean;
+    avoidFerries?: boolean;
 };
 export declare type Connection = {
     id: string;
     origin: RouteStop;
     destination: RouteStop;
     transitType?: TransitType;
+    avoidHighways?: boolean;
+    avoidTollRoads?: boolean;
+    avoidFerries?: boolean;
 };
 export declare type Photo = {
     uri: string;
