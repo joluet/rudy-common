@@ -82,41 +82,43 @@ export const buildConnections = (
         if (index < array.length - 1) {
           const origin = stop
           const destination = array[index + 1]
+          const prevStop = array.slice(0, index).find((stop) => stop.itemType === ItemType.Stop)
+          const nextStop = array.slice(index + 1).find((stop) => stop.itemType === ItemType.Stop)
 
-          if (origin.itemType === ItemType.FerryTerminalDeparture) {
+          if (prevStop && nextStop && origin.itemType === ItemType.FerryTerminalDeparture) {
             result.push({
-              id: `${origin.id}*${destination.name.replace(/ /g,'')}`,
+              id: `${prevStop.id}*${nextStop.id}*${origin.id}*${destination.id}`,
               origin: origin,
               destination: destination,
               transitType: TransitType.Ferry
             })
-          } else if (origin.itemType === ItemType.FerryTerminalArrival) {
-            if (destination.itemType === ItemType.FerryTerminalDeparture) {
+          } else if (prevStop && origin.itemType === ItemType.FerryTerminalArrival) {
+            if (nextStop && destination.itemType === ItemType.FerryTerminalDeparture) {
               result.push({
-                id: origin.id,
+                id: `${prevStop.id}*${nextStop.id}*${origin.id}`,
                 origin: origin,
                 destination: destination,
                 transitType: TransitType.FromAndToTerminal
               })
             } else {
               result.push({
-                id: origin.id,
+                id: `${prevStop.id}*${destination.id}*${origin.id}`,
                 origin: origin,
                 destination: destination,
                 transitType: TransitType.FromTerminal
               })
             }
-          } else if (origin.itemType === ItemType.FerryTerminalTransit) {
+          } else if (prevStop && nextStop && origin.itemType === ItemType.FerryTerminalTransit) {
             result.push({
-              id: `${origin.id}*${destination.name.replace(/ /g,'')}`,
+              id: `${prevStop.id}*${nextStop.id}*${origin.id}*${destination.id}`,
               origin: origin,
               destination: destination,
               transitType: TransitType.Ferry
             })
           } else {
-            if (destination.itemType === ItemType.FerryTerminalDeparture) {
+            if (nextStop && destination.itemType === ItemType.FerryTerminalDeparture) {
               result.push({
-                id: destination.id,
+                id: `${origin.id}*${nextStop.id}*${destination.id}`,
                 origin: origin,
                 destination: destination,
                 transitType: TransitType.ToTerminal

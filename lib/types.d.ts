@@ -13,7 +13,6 @@ export declare type FerryTerminal = {
         lat: number;
         lng: number;
     };
-    name: string;
 };
 export declare type ConnectionMetadata = {
     id: string;
