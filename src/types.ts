@@ -9,7 +9,6 @@ export enum TransitType {
 
 export type FerryTerminal = {
   location: { lat: number, lng: number},
-  name: string,
 }
 
 export type ConnectionMetadata = {
