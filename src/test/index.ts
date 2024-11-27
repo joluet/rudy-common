@@ -532,7 +532,7 @@ describe('buildConnections function', () => {
     ]
     const expectedConnections: Connection[] = [
       {
-        id: 'id-1*id-4*id-2',
+        id: 'id-1*id-2',
         origin: {
           id: 'id-1',
           placeId: 'place-1',
@@ -552,7 +552,7 @@ describe('buildConnections function', () => {
         transitType: TransitType.ToTerminal
       },
       {
-        id: 'id-1*id-4*id-2*id-3',
+        id: 'id-2*id-3',
         origin: {
           id: 'id-2',
           placeId: 'place-2',
@@ -572,7 +572,7 @@ describe('buildConnections function', () => {
         transitType: TransitType.Ferry
       },
       {
-        id: 'id-1*id-4*id-3',
+        id: 'id-3*id-4',
         origin: {
           id: 'id-3',
           placeId: 'place-3',
@@ -648,7 +648,7 @@ describe('buildConnections function', () => {
     ]
     const expectedConnections: Connection[] = [
       {
-        id: 'id-1*id-5*id-2',
+        id: 'id-1*id-2',
         origin: {
           id: 'id-1',
           placeId: 'place-1',
@@ -668,7 +668,7 @@ describe('buildConnections function', () => {
         transitType: TransitType.ToTerminal
       },
       {
-        id: 'id-1*id-5*id-2*id-3',
+        id: 'id-2*id-3',
         origin: {
           id: 'id-2',
           placeId: 'place-2',
@@ -688,7 +688,7 @@ describe('buildConnections function', () => {
         transitType: TransitType.Ferry
       },
       {
-        id: 'id-1*id-5*id-3*id-4',
+        id: 'id-3*id-4',
         origin: {
           id: 'id-3',
           placeId: 'place-3',
@@ -708,7 +708,7 @@ describe('buildConnections function', () => {
         transitType: TransitType.Ferry
       },
       {
-        id: 'id-1*id-5*id-4',
+        id: 'id-4*id-5',
         origin: {
           id: 'id-4',
           placeId: 'place-4',
@@ -795,7 +795,7 @@ describe('buildConnections function', () => {
 
     const expectedConnections: Connection[] = [
       {
-        id: 'id-1*id-6*id-2',
+        id: 'id-1*id-2',
         origin: {
           id: 'id-1',
           placeId: 'place-1',
@@ -815,7 +815,7 @@ describe('buildConnections function', () => {
         transitType: TransitType.ToTerminal
       },
       {
-        id: 'id-1*id-6*id-2*id-3',
+        id: 'id-2*id-3',
         origin: {
           id: 'id-2',
           placeId: 'place-2',
@@ -835,7 +835,7 @@ describe('buildConnections function', () => {
         transitType: TransitType.Ferry
       },
       {
-        id: 'id-1*id-6*id-3',
+        id: 'id-3*id-4',
         origin: {
           id: 'id-3',
           placeId: 'place-3',
@@ -855,7 +855,7 @@ describe('buildConnections function', () => {
         transitType: TransitType.FromAndToTerminal
       },
       {
-        id: 'id-1*id-6*id-4*id-5',
+        id: 'id-4*id-5',
         origin: {
           id: 'id-4',
           placeId: 'place-4',
@@ -875,7 +875,7 @@ describe('buildConnections function', () => {
         transitType: TransitType.Ferry
       },
       {
-        id: 'id-1*id-6*id-5',
+        id: 'id-5*id-6',
         origin: {
           id: 'id-5',
           placeId: 'place-5',
