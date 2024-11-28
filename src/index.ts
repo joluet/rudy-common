@@ -8,7 +8,9 @@ import {
   RouteUser,
   AutosuggestResult,
   Place,
-  Photo
+  Photo,
+  TransitType,
+  FerryTerminal,
 } from './types'
 
 export {
@@ -21,7 +23,9 @@ export {
   RouteUser,
   AutosuggestResult,
   Place,
-  Photo
+  Photo,
+  TransitType,
+  FerryTerminal
 }
 
 export const mergeRouteStates = (routeStates: RouteState[]): RouteState => {
@@ -78,11 +82,45 @@ export const buildConnections = (
         if (index < array.length - 1) {
           const origin = stop
           const destination = array[index + 1]
-          result.push({
+          const prevStop = array.slice(0, index).find((stop) => stop.itemType === ItemType.Stop)
+          const nextStop = array.slice(index + 1).find((stop) => stop.itemType === ItemType.Stop)
+          let element: Connection = {
             id: `${origin.id}*${destination.id}`,
             origin: origin,
-            destination: destination
-          })
+            destination: destination,
+          }
+
+          if (
+            prevStop &&
+            nextStop && 
+            (origin.itemType === ItemType.FerryTerminalDeparture || 
+              origin.itemType === ItemType.FerryTerminalTransit)
+          ) {
+            element = {
+              ...element,
+              transitType: TransitType.Ferry
+            }
+          } else if (prevStop && origin.itemType === ItemType.FerryTerminalArrival) {
+            if (nextStop && destination.itemType === ItemType.FerryTerminalDeparture) {
+              element = {
+                ...element,
+                transitType: TransitType.FromAndToTerminal
+              }
+            } else {
+              element = {
+                ...element,
+                transitType: TransitType.FromTerminal
+              }
+            }
+          } else {
+            if (nextStop && destination.itemType === ItemType.FerryTerminalDeparture) {
+              element = {
+                ...element,
+                transitType: TransitType.ToTerminal
+              }
+            }
+          }
+          result.push(element)
         }
         return result
       },
