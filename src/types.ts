@@ -8,7 +8,12 @@ export enum TransitType {
 }
 
 export type FerryTerminal = {
-  location: { lat: number, lng: number},
+  place: {
+    type: string
+    location: { lat: number; lng: number }
+    originalLocation?: { lat: number; lng: number }
+    waypoint?: number
+  },
 }
 
 export type ConnectionMetadata = {
