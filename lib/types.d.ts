@@ -9,9 +9,17 @@ export declare enum TransitType {
     FromAndToTerminal = "from-and-to-terminal"
 }
 export declare type FerryTerminal = {
-    location: {
-        lat: number;
-        lng: number;
+    place: {
+        type: string;
+        location: {
+            lat: number;
+            lng: number;
+        };
+        originalLocation?: {
+            lat: number;
+            lng: number;
+        };
+        waypoint?: number;
     };
 };
 export declare type ConnectionMetadata = {
