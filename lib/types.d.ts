@@ -70,7 +70,7 @@ export declare type RouteStop = {
         avoidTollRoads?: boolean;
         avoidHighways?: boolean;
         preferFerries?: boolean;
-    };
+    } | null;
 };
 export declare enum ItemType {
     Stop = "Stop",

@@ -67,7 +67,7 @@ export type RouteStop = {
     avoidTollRoads?: boolean
     avoidHighways?: boolean
     preferFerries?: boolean
-  }
+  } | null
 }
 
 export enum ItemType {
