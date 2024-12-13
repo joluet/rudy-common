@@ -31,12 +31,18 @@ export declare type ConnectionMetadata = {
     transitType?: TransitType;
     arrival?: FerryTerminal;
     departure?: FerryTerminal;
+    avoidHighways?: boolean;
+    avoidTollRoads?: boolean;
+    avoidFerries?: boolean;
 };
 export declare type Connection = {
     id: string;
     origin: RouteStop;
     destination: RouteStop;
     transitType?: TransitType;
+    avoidHighways?: boolean;
+    avoidTollRoads?: boolean;
+    avoidFerries?: boolean;
 };
 export declare type Photo = {
     uri: string;
@@ -60,6 +66,11 @@ export declare type RouteStop = {
     photos?: Photo[];
     date?: string;
     position?: number;
+    sectionProperties?: {
+        avoidTollRoads?: boolean;
+        avoidHighways?: boolean;
+        preferFerries?: boolean;
+    } | null;
 };
 export declare enum ItemType {
     Stop = "Stop",

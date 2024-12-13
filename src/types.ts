@@ -25,6 +25,9 @@ export type ConnectionMetadata = {
   transitType?: TransitType
   arrival?: FerryTerminal
   departure?: FerryTerminal
+  avoidHighways?: boolean
+  avoidTollRoads?: boolean
+  avoidFerries?: boolean
 }
 
 export type Connection = {
@@ -32,6 +35,9 @@ export type Connection = {
   origin: RouteStop
   destination: RouteStop
   transitType?: TransitType
+  avoidHighways?: boolean
+  avoidTollRoads?: boolean
+  avoidFerries?: boolean
 }
 
 export type Photo = {
@@ -57,6 +63,11 @@ export type RouteStop = {
   photos?: Photo[]
   date?: string
   position?: number
+  sectionProperties?: {
+    avoidTollRoads?: boolean
+    avoidHighways?: boolean
+    preferFerries?: boolean
+  } | null
 }
 
 export enum ItemType {
