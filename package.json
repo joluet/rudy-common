@@ -1,6 +1,6 @@
 {
   "name": "rudy-common",
-  "version": "1.0.0",
+  "version": "1.0.23",
   "description": "Common utils shared between Rudy Firebase function and mobile app",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
