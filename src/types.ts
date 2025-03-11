@@ -27,7 +27,7 @@ export type ConnectionMetadata = {
   departure?: FerryTerminal
   avoidHighways?: boolean
   avoidTollRoads?: boolean
-  avoidFerries?: boolean
+  date?: string
 }
 
 export type Connection = {
@@ -37,7 +37,6 @@ export type Connection = {
   transitType?: TransitType
   avoidHighways?: boolean
   avoidTollRoads?: boolean
-  avoidFerries?: boolean
 }
 
 export type Photo = {
@@ -67,6 +66,7 @@ export type RouteStop = {
     avoidTollRoads?: boolean
     avoidHighways?: boolean
     preferFerries?: boolean
+    date?: string
   } | null
 }
 
@@ -76,7 +76,6 @@ export enum ItemType {
   Waypoint = 'Waypoint',
   FerryTerminalArrival = 'FerryTerminalArrival',
   FerryTerminalDeparture = 'FerryTerminalDeparture',
-  FerryTerminalTransit = 'FerryTerminalTransit'
 }
 
 export enum RouteUserRole {
