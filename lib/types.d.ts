@@ -33,7 +33,7 @@ export declare type ConnectionMetadata = {
     departure?: FerryTerminal;
     avoidHighways?: boolean;
     avoidTollRoads?: boolean;
-    avoidFerries?: boolean;
+    date?: string;
 };
 export declare type Connection = {
     id: string;
@@ -42,7 +42,6 @@ export declare type Connection = {
     transitType?: TransitType;
     avoidHighways?: boolean;
     avoidTollRoads?: boolean;
-    avoidFerries?: boolean;
 };
 export declare type Photo = {
     uri: string;
@@ -70,6 +69,7 @@ export declare type RouteStop = {
         avoidTollRoads?: boolean;
         avoidHighways?: boolean;
         preferFerries?: boolean;
+        date?: string;
     } | null;
 };
 export declare enum ItemType {
@@ -77,8 +77,7 @@ export declare enum ItemType {
     Section = "Section",
     Waypoint = "Waypoint",
     FerryTerminalArrival = "FerryTerminalArrival",
-    FerryTerminalDeparture = "FerryTerminalDeparture",
-    FerryTerminalTransit = "FerryTerminalTransit"
+    FerryTerminalDeparture = "FerryTerminalDeparture"
 }
 export declare enum RouteUserRole {
     Owner = 0,

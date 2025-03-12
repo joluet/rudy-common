@@ -620,7 +620,7 @@ describe('buildConnections function', () => {
         name: 'name 3',
         lat: 3.0,
         lng: 3.3,
-        itemType: ItemType.FerryTerminalTransit
+        itemType: ItemType.FerryTerminalArrival
       },
       {
         id: 'id-4',
@@ -628,7 +628,7 @@ describe('buildConnections function', () => {
         name: 'name 4',
         lat: 4.0,
         lng: 4.4,
-        itemType: ItemType.FerryTerminalArrival
+        itemType: ItemType.FerryTerminalDeparture
       },
       {
         id: 'id-5',
@@ -636,6 +636,14 @@ describe('buildConnections function', () => {
         name: 'name 5',
         lat: 5.0,
         lng: 5.5,
+        itemType: ItemType.FerryTerminalArrival
+      },
+      {
+        id: 'id-6',
+        placeId: 'place-6',
+        name: 'name 6',
+        lat: 6.0,
+        lng: 6.6,
         itemType: ItemType.Stop
       }
     ]
@@ -645,6 +653,7 @@ describe('buildConnections function', () => {
       { id: 'id-3', position: 2 },
       { id: 'id-4', position: 3 },
       { id: 'id-5', position: 4 },
+      { id: 'id-6', position: 5 },
     ]
     const expectedConnections: Connection[] = [
       {
@@ -683,7 +692,7 @@ describe('buildConnections function', () => {
           name: 'name 3',
           lat: 3.0,
           lng: 3.3,
-          itemType: ItemType.FerryTerminalTransit
+          itemType: ItemType.FerryTerminalArrival
         },
         transitType: TransitType.Ferry
       },
@@ -695,7 +704,7 @@ describe('buildConnections function', () => {
           name: 'name 3',
           lat: 3.0,
           lng: 3.3,
-          itemType: ItemType.FerryTerminalTransit
+          itemType: ItemType.FerryTerminalArrival
         },
         destination: {
           id: 'id-4',
@@ -703,9 +712,9 @@ describe('buildConnections function', () => {
           name: 'name 4',
           lat: 4.0,
           lng: 4.4,
-          itemType: ItemType.FerryTerminalArrival
+          itemType: ItemType.FerryTerminalDeparture
         },
-        transitType: TransitType.Ferry
+        transitType: TransitType.FromAndToTerminal
       },
       {
         id: 'id-4*id-5',
@@ -715,7 +724,7 @@ describe('buildConnections function', () => {
           name: 'name 4',
           lat: 4.0,
           lng: 4.4,
-          itemType: ItemType.FerryTerminalArrival
+          itemType: ItemType.FerryTerminalDeparture
         },
         destination: {
           id: 'id-5',
@@ -723,6 +732,26 @@ describe('buildConnections function', () => {
           name: 'name 5',
           lat: 5.0,
           lng: 5.5,
+          itemType: ItemType.FerryTerminalArrival
+        },
+        transitType: TransitType.Ferry
+      },
+      {
+        id: 'id-5*id-6',
+        origin: {
+          id: 'id-5',
+          placeId: 'place-5',
+          name: 'name 5',
+          lat: 5.0,
+          lng: 5.5,
+          itemType: ItemType.FerryTerminalArrival
+        },
+        destination: {
+          id: 'id-6',
+          placeId: 'place-6',
+          name: 'name 6',
+          lat: 6.0,
+          lng: 6.6,
           itemType: ItemType.Stop
         },
         transitType: TransitType.FromTerminal

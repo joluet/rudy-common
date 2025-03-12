@@ -93,8 +93,7 @@ export const buildConnections = (
           if (
             prevStop &&
             nextStop && 
-            (origin.itemType === ItemType.FerryTerminalDeparture || 
-              origin.itemType === ItemType.FerryTerminalTransit)
+            (origin.itemType === ItemType.FerryTerminalDeparture)
           ) {
             element = {
               ...element,
