@@ -20,7 +20,7 @@ export type ConnectionMetadata = {
   id: string
   duration: number
   distance: number
-  polyline: { latitude: number; longitude: number }[]
+  polyline: LatLng[] | string
   errorCode?: string | null
   transitType?: TransitType
   arrival?: FerryTerminal
