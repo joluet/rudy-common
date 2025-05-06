@@ -88,7 +88,7 @@ export const createConnectionsMock = (
           id: element.id,
           duration: 1,
           distance: 1,
-          polyline: '',
+          polyline: [{ latitude: 1, longitude: 1 }],
           transitType
         })
       }

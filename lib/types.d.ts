@@ -26,7 +26,10 @@ export declare type ConnectionMetadata = {
     id: string;
     duration: number;
     distance: number;
-    polyline: string;
+    polyline: {
+        latitude: number;
+        longitude: number;
+    }[];
     errorCode?: string | null;
     transitType?: TransitType;
     arrival?: FerryTerminal;

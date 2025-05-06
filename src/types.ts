@@ -1,10 +1,10 @@
 export type RouteState = { id: string; position: number }[]
 
 export enum TransitType {
-  Ferry= 'ferry',
+  Ferry = 'ferry',
   ToTerminal = 'to-terminal',
   FromTerminal = 'from-terminal',
-  FromAndToTerminal = 'from-and-to-terminal',
+  FromAndToTerminal = 'from-and-to-terminal'
 }
 
 export type FerryTerminal = {
@@ -13,14 +13,14 @@ export type FerryTerminal = {
     location: { lat: number; lng: number }
     originalLocation?: { lat: number; lng: number }
     waypoint?: number
-  },
+  }
 }
 
 export type ConnectionMetadata = {
   id: string
   duration: number
   distance: number
-  polyline: string
+  polyline: { latitude: number; longitude: number }[]
   errorCode?: string | null
   transitType?: TransitType
   arrival?: FerryTerminal
@@ -75,7 +75,7 @@ export enum ItemType {
   Section = 'Section',
   Waypoint = 'Waypoint',
   FerryTerminalArrival = 'FerryTerminalArrival',
-  FerryTerminalDeparture = 'FerryTerminalDeparture',
+  FerryTerminalDeparture = 'FerryTerminalDeparture'
 }
 
 export enum RouteUserRole {

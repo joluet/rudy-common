@@ -302,13 +302,13 @@ describe('checkEveryStopHasAtLeastOneConnectionConnectingIt', () => {
       id: `stop10*${routeElements[6]}`,
       duration: 1,
       distance: 1,
-      polyline: ''
+      polyline: [{ latitude: 1, longitude: 1 }]
     })
     connections.push({
       id: `${routeElements[6]}*stop12`,
       duration: 1,
       distance: 1,
-      polyline: ''
+      polyline: [{ latitude: 1, longitude: 1 }]
     })
 
     const everyConnectionConsistsOfTwoExistingRouteElements = checkEveryConnectionConsistsOfTwoExistingRouteElements(

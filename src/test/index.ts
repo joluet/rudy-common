@@ -174,7 +174,7 @@ describe('buildConnections function', () => {
           lat: 1.0,
           lng: 1.1,
           itemType: ItemType.Stop
-        },
+        }
       },
       {
         id: 'id-1*id-2',
@@ -505,7 +505,7 @@ describe('buildConnections function', () => {
         name: 'name 2',
         lat: 2.0,
         lng: 2.2,
-        itemType: ItemType.FerryTerminalDeparture,
+        itemType: ItemType.FerryTerminalDeparture
       },
       {
         id: 'id-3',
@@ -547,7 +547,7 @@ describe('buildConnections function', () => {
           name: 'name 2',
           lat: 2.0,
           lng: 2.2,
-          itemType: ItemType.FerryTerminalDeparture,
+          itemType: ItemType.FerryTerminalDeparture
         },
         transitType: TransitType.ToTerminal
       },
@@ -559,7 +559,7 @@ describe('buildConnections function', () => {
           name: 'name 2',
           lat: 2.0,
           lng: 2.2,
-          itemType: ItemType.FerryTerminalDeparture,
+          itemType: ItemType.FerryTerminalDeparture
         },
         destination: {
           id: 'id-3',
@@ -612,7 +612,7 @@ describe('buildConnections function', () => {
         name: 'name 2',
         lat: 2.0,
         lng: 2.2,
-        itemType: ItemType.FerryTerminalDeparture,
+        itemType: ItemType.FerryTerminalDeparture
       },
       {
         id: 'id-3',
@@ -653,7 +653,7 @@ describe('buildConnections function', () => {
       { id: 'id-3', position: 2 },
       { id: 'id-4', position: 3 },
       { id: 'id-5', position: 4 },
-      { id: 'id-6', position: 5 },
+      { id: 'id-6', position: 5 }
     ]
     const expectedConnections: Connection[] = [
       {
@@ -672,7 +672,7 @@ describe('buildConnections function', () => {
           name: 'name 2',
           lat: 2.0,
           lng: 2.2,
-          itemType: ItemType.FerryTerminalDeparture,
+          itemType: ItemType.FerryTerminalDeparture
         },
         transitType: TransitType.ToTerminal
       },
@@ -684,7 +684,7 @@ describe('buildConnections function', () => {
           name: 'name 2',
           lat: 2.0,
           lng: 2.2,
-          itemType: ItemType.FerryTerminalDeparture,
+          itemType: ItemType.FerryTerminalDeparture
         },
         destination: {
           id: 'id-3',
@@ -761,7 +761,7 @@ describe('buildConnections function', () => {
     expect(connections).to.deep.equal(expectedConnections)
   })
 
-  it('should also work when connecting ferries are not departing and arriving from same terminal',() => {
+  it('should also work when connecting ferries are not departing and arriving from same terminal', () => {
     const stops: RouteStop[] = [
       {
         id: 'id-1',
@@ -777,7 +777,7 @@ describe('buildConnections function', () => {
         name: 'name 2',
         lat: 2.0,
         lng: 2.2,
-        itemType: ItemType.FerryTerminalDeparture,
+        itemType: ItemType.FerryTerminalDeparture
       },
       {
         id: 'id-3',
@@ -793,7 +793,7 @@ describe('buildConnections function', () => {
         name: 'name 4',
         lat: 4.0,
         lng: 4.4,
-        itemType: ItemType.FerryTerminalDeparture,
+        itemType: ItemType.FerryTerminalDeparture
       },
       {
         id: 'id-5',
@@ -812,14 +812,14 @@ describe('buildConnections function', () => {
         itemType: ItemType.Stop
       }
     ]
-    
+
     const routeState: RouteState = [
       { id: 'id-1', position: 0 },
       { id: 'id-2', position: 1 },
       { id: 'id-3', position: 2 },
       { id: 'id-4', position: 3 },
       { id: 'id-5', position: 4 },
-      { id: 'id-6', position: 5 },
+      { id: 'id-6', position: 5 }
     ]
 
     const expectedConnections: Connection[] = [
@@ -839,7 +839,7 @@ describe('buildConnections function', () => {
           name: 'name 2',
           lat: 2.0,
           lng: 2.2,
-          itemType: ItemType.FerryTerminalDeparture,
+          itemType: ItemType.FerryTerminalDeparture
         },
         transitType: TransitType.ToTerminal
       },
@@ -851,7 +851,7 @@ describe('buildConnections function', () => {
           name: 'name 2',
           lat: 2.0,
           lng: 2.2,
-          itemType: ItemType.FerryTerminalDeparture,
+          itemType: ItemType.FerryTerminalDeparture
         },
         destination: {
           id: 'id-3',
@@ -879,7 +879,7 @@ describe('buildConnections function', () => {
           name: 'name 4',
           lat: 4.0,
           lng: 4.4,
-          itemType: ItemType.FerryTerminalDeparture,
+          itemType: ItemType.FerryTerminalDeparture
         },
         transitType: TransitType.FromAndToTerminal
       },
@@ -891,7 +891,7 @@ describe('buildConnections function', () => {
           name: 'name 4',
           lat: 4.0,
           lng: 4.4,
-          itemType: ItemType.FerryTerminalDeparture,
+          itemType: ItemType.FerryTerminalDeparture
         },
         destination: {
           id: 'id-5',
@@ -937,19 +937,19 @@ describe('calculateMetricsSums function', () => {
         id: 'id-1*id-2',
         duration: 1,
         distance: 10,
-        polyline: ''
+        polyline: [{ latitude: 1, longitude: 1 }]
       },
       {
         id: 'id-2*id-3',
         duration: 2,
         distance: 20,
-        polyline: ''
+        polyline: [{ latitude: 1, longitude: 1 }]
       },
       {
         id: 'id-3*id-4',
         duration: 3,
         distance: 30,
-        polyline: ''
+        polyline: [{ latitude: 1, longitude: 1 }]
       }
     ]
     const expextedMetricsSums = {
@@ -967,19 +967,19 @@ describe('calculateMetricsSums function', () => {
         id: 'id-1*id-2',
         duration: 1,
         distance: 10,
-        polyline: ''
+        polyline: [{ latitude: 1, longitude: 1 }]
       },
       {
         id: 'id-2*id-3',
         duration: 2,
         distance: 20,
-        polyline: ''
+        polyline: [{ latitude: 1, longitude: 1 }]
       },
       {
         id: 'id-3*id-4',
         duration: 3,
         distance: 30,
-        polyline: ''
+        polyline: [{ latitude: 1, longitude: 1 }]
       }
     ]
     const deletedConnections = ['id-2*id-3']
@@ -1002,19 +1002,19 @@ describe('calculateMetricsSums function', () => {
         id: 'id-1*id-2',
         duration: 1,
         distance: 10,
-        polyline: ''
+        polyline: [{ latitude: 1, longitude: 1 }]
       },
       {
         id: 'id-2*id-3',
         duration: 2,
         distance: 20,
-        polyline: ''
+        polyline: [{ latitude: 1, longitude: 1 }]
       },
       {
         id: 'id-3*id-4',
         duration: 3,
         distance: 30,
-        polyline: ''
+        polyline: [{ latitude: 1, longitude: 1 }]
       }
     ]
     const addedConnections = [
@@ -1022,7 +1022,7 @@ describe('calculateMetricsSums function', () => {
         id: 'id-4*id-5',
         duration: 4,
         distance: 40,
-        polyline: ''
+        polyline: [{ latitude: 1, longitude: 1 }]
       }
     ]
     const deletedConnections = ['id-2*id-3']
@@ -1045,13 +1045,13 @@ describe('calculateMetricsSums function', () => {
         id: 'id-1*id-2',
         duration: 1,
         distance: 10,
-        polyline: ''
+        polyline: [{ latitude: 1, longitude: 1 }]
       },
       {
         id: 'id-2*id-3',
         duration: 2,
         distance: 20,
-        polyline: ''
+        polyline: [{ latitude: 1, longitude: 1 }]
       }
     ]
     const addedConnections: ConnectionMetadata[] = []
