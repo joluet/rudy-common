@@ -10,7 +10,7 @@ import {
   Place,
   Photo,
   TransitType,
-  FerryTerminal,
+  FerryTerminal
 } from './types'
 
 export {
@@ -26,6 +26,40 @@ export {
   Photo,
   TransitType,
   FerryTerminal
+}
+
+import {
+  createRouteStateMock,
+  createConnectionsMock,
+  createFerryStopsArrayMock,
+  createRouteElementsMock
+} from './test/mocks'
+
+export {
+  createRouteStateMock,
+  createConnectionsMock,
+  createFerryStopsArrayMock,
+  createRouteElementsMock
+}
+
+import {
+  checkNumberOfRouteStateElementsEqualRouteElementNumber,
+  checkEveryConnectionConsistsOfTwoExistingRouteElements,
+  checkEveryStateElementMatchesARouteElement,
+  checkEveryStopHasAtLeastOneConnectionConnectingIt,
+  checkHasValidFerryConnections,
+  checkNumberOfConnectionsMatchesRouteElementsNumber,
+  checkRouteStateHasNoHoles
+} from './routeStateSanityCheck'
+
+export {
+  checkNumberOfRouteStateElementsEqualRouteElementNumber,
+  checkEveryConnectionConsistsOfTwoExistingRouteElements,
+  checkEveryStateElementMatchesARouteElement,
+  checkEveryStopHasAtLeastOneConnectionConnectingIt,
+  checkHasValidFerryConnections,
+  checkNumberOfConnectionsMatchesRouteElementsNumber,
+  checkRouteStateHasNoHoles
 }
 
 export const mergeRouteStates = (routeStates: RouteState[]): RouteState => {
@@ -82,25 +116,35 @@ export const buildConnections = (
         if (index < array.length - 1) {
           const origin = stop
           const destination = array[index + 1]
-          const prevStop = array.slice(0, index).find((stop) => stop.itemType === ItemType.Stop)
-          const nextStop = array.slice(index + 1).find((stop) => stop.itemType === ItemType.Stop)
+          const prevStop = array
+            .slice(0, index)
+            .find((stop) => stop.itemType === ItemType.Stop)
+          const nextStop = array
+            .slice(index + 1)
+            .find((stop) => stop.itemType === ItemType.Stop)
           let element: Connection = {
             id: `${origin.id}*${destination.id}`,
             origin: origin,
-            destination: destination,
+            destination: destination
           }
 
           if (
             prevStop &&
-            nextStop && 
-            (origin.itemType === ItemType.FerryTerminalDeparture)
+            nextStop &&
+            origin.itemType === ItemType.FerryTerminalDeparture
           ) {
             element = {
               ...element,
               transitType: TransitType.Ferry
             }
-          } else if (prevStop && origin.itemType === ItemType.FerryTerminalArrival) {
-            if (nextStop && destination.itemType === ItemType.FerryTerminalDeparture) {
+          } else if (
+            prevStop &&
+            origin.itemType === ItemType.FerryTerminalArrival
+          ) {
+            if (
+              nextStop &&
+              destination.itemType === ItemType.FerryTerminalDeparture
+            ) {
               element = {
                 ...element,
                 transitType: TransitType.FromAndToTerminal
@@ -112,7 +156,10 @@ export const buildConnections = (
               }
             }
           } else {
-            if (nextStop && destination.itemType === ItemType.FerryTerminalDeparture) {
+            if (
+              nextStop &&
+              destination.itemType === ItemType.FerryTerminalDeparture
+            ) {
               element = {
                 ...element,
                 transitType: TransitType.ToTerminal
